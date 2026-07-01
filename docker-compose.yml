@@ -1,6 +1,7 @@
 services:
   mongo:
     image: mongo:7
+    container_name: cipherforge-mongo
     restart: unless-stopped
     volumes:
       - mongo_data:/data/db
@@ -9,25 +10,36 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - internal
 
   backend:
     build: ./backend
+    container_name: cipherforge-backend
     restart: unless-stopped
     env_file: ./backend/.env
     depends_on:
       mongo:
         condition: service_healthy
+    networks:
+      - internal
 
   frontend:
-    build:
-      context: ./frontend
-      args:
-        VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID:-}
+    build: ./frontend
+    container_name: cipherforge-frontend
     restart: unless-stopped
     depends_on:
       - backend
     ports:
-      - "8080:80"
+      - "8888:80"
+    networks:
+      - internal
+      - proxy-net
 
 volumes:
   mongo_data:
+
+networks:
+  internal:
+  proxy-net:
+    external: true

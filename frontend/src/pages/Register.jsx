@@ -1,14 +1,13 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api";
 import { useAuth } from "../auth";
 import Terminal from "../components/Terminal";
-import GoogleButton from "../components/GoogleButton";
 
 export default function Register() {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -18,7 +17,7 @@ export default function Register() {
     setError("");
     setBusy(true);
     try {
-      const { access_token } = await api.register(email, password);
+      const { access_token } = await api.register(username, password);
       await login(access_token);
       navigate("/");
     } catch (err) {
@@ -28,32 +27,20 @@ export default function Register() {
     }
   }
 
-  const handleGoogle = useCallback(
-    async (credential) => {
-      setError("");
-      try {
-        const { access_token } = await api.google(credential);
-        await login(access_token);
-        navigate("/");
-      } catch (err) {
-        setError(err.message);
-      }
-    },
-    [login, navigate]
-  );
-
   return (
     <Terminal title="cipher-forge — register">
       <p className="prompt">create account</p>
       <form onSubmit={submit} className="form">
         <label>
-          email
+          username
           <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
-            autoComplete="email"
+            minLength={3}
+            maxLength={20}
+            pattern="[a-zA-Z0-9_]+"
+            autoComplete="username"
           />
         </label>
         <label>
@@ -67,14 +54,12 @@ export default function Register() {
             autoComplete="new-password"
           />
         </label>
-        <p className="muted">min 8 characters</p>
+        <p className="muted">username 3–20 chars · password min 8</p>
         {error && <p className="error">! {error}</p>}
         <button type="submit" disabled={busy}>
           {busy ? "creating…" : "register"}
         </button>
       </form>
-      <div className="divider">or</div>
-      <GoogleButton onCredential={handleGoogle} />
       <p className="muted">
         already have one? <Link to="/login">login</Link>
       </p>

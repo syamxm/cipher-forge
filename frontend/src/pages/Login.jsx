@@ -1,14 +1,13 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api";
 import { useAuth } from "../auth";
 import Terminal from "../components/Terminal";
-import GoogleButton from "../components/GoogleButton";
 
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -18,7 +17,7 @@ export default function Login() {
     setError("");
     setBusy(true);
     try {
-      const { access_token } = await api.login(email, password);
+      const { access_token } = await api.login(username, password);
       await login(access_token);
       navigate("/");
     } catch (err) {
@@ -28,32 +27,17 @@ export default function Login() {
     }
   }
 
-  const handleGoogle = useCallback(
-    async (credential) => {
-      setError("");
-      try {
-        const { access_token } = await api.google(credential);
-        await login(access_token);
-        navigate("/");
-      } catch (err) {
-        setError(err.message);
-      }
-    },
-    [login, navigate]
-  );
-
   return (
     <Terminal title="cipher-forge — login">
       <p className="prompt">authenticate</p>
       <form onSubmit={submit} className="form">
         <label>
-          email
+          username
           <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
-            autoComplete="email"
+            autoComplete="username"
           />
         </label>
         <label>
@@ -71,8 +55,6 @@ export default function Login() {
           {busy ? "authenticating…" : "login"}
         </button>
       </form>
-      <div className="divider">or</div>
-      <GoogleButton onCredential={handleGoogle} />
       <p className="muted">
         no account? <Link to="/register">register</Link>
       </p>

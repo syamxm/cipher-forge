@@ -11,7 +11,7 @@ Course project — CSC669 Cryptography Algorithm, UiTM.
 - Backend: FastAPI (Python), Motor (async MongoDB)
 - Frontend: React + Vite
 - Database: MongoDB
-- Auth: email/password + Google Sign-In (JWT sessions)
+- Auth: username/password (JWT sessions)
 - Deploy: Docker Compose, served via Nginx, exposed through Cloudflare Tunnel
 - Theme: Tokyo Night Storm, Tux mascot
 
@@ -27,12 +27,16 @@ docker-compose.yml
 ## Run with Docker (production-like)
 
 ```bash
-cp backend/.env.example backend/.env      # set JWT_SECRET and GOOGLE_CLIENT_ID
-cp .env.example .env                       # set VITE_GOOGLE_CLIENT_ID (optional)
+cp backend/.env.example backend/.env      # set JWT_SECRET
 docker compose up --build
 ```
 
-App: http://localhost:8080  ·  API docs: proxied under `/api` (see backend).
+App: http://localhost:8888  ·  API docs: proxied under `/api` (see backend).
+
+In production the frontend container joins the external `proxy-net` network and
+is routed by the central Nginx proxy (`~/nginx`) as `cipher-forge.syamxm.com`,
+which is exposed through Cloudflare Tunnel. The `8888` host port is for
+direct/local access only.
 
 ## Run locally for development
 
@@ -48,35 +52,24 @@ uvicorn app.main:app --reload
 Frontend:
 ```bash
 cd frontend
-cp .env.example .env                       # optional: VITE_GOOGLE_CLIENT_ID
 npm install
 npm run dev                                 # http://localhost:5173, proxies /api -> :8000
 ```
 
 ## Auth flow
 
-1. Register (email + password) or Sign in with Google.
-2. First-time users pick a username (3–20 chars, `[a-zA-Z0-9_]`).
+1. Register with a username (3–20 chars, `[a-zA-Z0-9_]`) and password (min 8).
+2. Log in with the same username and password.
 3. Authenticated users reach the game. Unauthenticated users are redirected to
-   login. Users without a username are redirected to set one.
+   login.
 
 ## API (implemented)
 
 | Method | Path                     | Auth | Purpose                     |
 |--------|--------------------------|------|-----------------------------|
-| POST   | /api/auth/register       | no   | Email/password sign-up      |
-| POST   | /api/auth/login          | no   | Email/password login        |
-| POST   | /api/auth/google         | no   | Google ID token login       |
+| POST   | /api/auth/register       | no   | Username/password sign-up   |
+| POST   | /api/auth/login          | no   | Username/password login     |
 | GET    | /api/auth/me             | yes  | Current user                |
-| PATCH  | /api/auth/me/username    | yes  | Set username                |
 | GET    | /api/game/ping           | yes  | Stub — game routes go here  |
 
 Game and leaderboard endpoints are stubbed in `backend/app/routers/game.py`.
-
-## Google Sign-In setup
-
-1. Create an OAuth 2.0 Web client in Google Cloud Console.
-2. Add authorized origins: `http://localhost:5173`, `http://localhost:8080`,
-   `https://cipher-forge.syamxm.com`.
-3. Put the client id in `backend/.env` (`GOOGLE_CLIENT_ID`) and in the
-   frontend env (`VITE_GOOGLE_CLIENT_ID`) — both must match.
