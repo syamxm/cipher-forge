@@ -26,25 +26,15 @@ async function request(path, options = {}) {
 }
 
 export const api = {
-  register: (email, password) =>
+  register: (username, password) =>
     request("/auth/register", {
       method: "POST",
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username, password }),
     }),
-  login: (email, password) =>
+  login: (username, password) =>
     request("/auth/login", {
       method: "POST",
-      body: JSON.stringify({ email, password }),
-    }),
-  google: (idToken) =>
-    request("/auth/google", {
-      method: "POST",
-      body: JSON.stringify({ id_token: idToken }),
+      body: JSON.stringify({ username, password }),
     }),
   me: () => request("/auth/me"),
-  setUsername: (username) =>
-    request("/auth/me/username", {
-      method: "PATCH",
-      body: JSON.stringify({ username }),
-    }),
 };

@@ -1,5 +1,5 @@
 # Optional: only needed if you terminate at a host-level Nginx instead of
-# pointing Cloudflare Tunnel straight at the frontend container (port 8080).
+# pointing Cloudflare Tunnel straight at the frontend container (port 8888).
 #
 # Cloudflare Tunnel already provides TLS, so this host block stays on plain HTTP.
 
@@ -8,7 +8,7 @@ server {
   server_name cipher-forge.syamxm.com;
 
   location / {
-    proxy_pass http://127.0.0.1:8080;
+    proxy_pass http://127.0.0.1:8888;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

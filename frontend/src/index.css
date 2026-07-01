@@ -158,18 +158,6 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.divider {
-  text-align: center;
-  color: var(--fg-muted);
-  font-size: 13px;
-  margin: 16px 0;
-}
-
-.google-btn {
-  display: flex;
-  justify-content: center;
-}
-
 .error {
   color: var(--red);
   font-size: 13px;
