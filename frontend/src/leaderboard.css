@@ -1,0 +1,94 @@
+/* leaderboard.css */
+.lb-wide {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.lb-back {
+  color: #7dcfff; /* Tokyo Night cyan */
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.lb-back:hover {
+  color: #c0caf5;
+  text-decoration: underline;
+}
+
+.lb-tabs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #565f89;
+  padding-bottom: 8px;
+}
+
+.lb-tab {
+  background: transparent;
+  border: none;
+  color: #565f89;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 5px 10px;
+  transition: all 0.2s;
+}
+
+.lb-tab:hover {
+  color: #c0caf5;
+}
+
+.lb-tab.active {
+  color: #7aa2f7; /* Tokyo Night blue */
+  border-bottom: 2px solid #7aa2f7;
+  font-weight: bold;
+}
+
+.lb-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.lb-table th {
+  padding: 12px 10px;
+  border-bottom: 1px dashed #565f89;
+  color: #9ece6a; /* Tokyo Night green */
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.lb-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(86, 95, 137, 0.2);
+  color: #c0caf5;
+}
+
+.lb-row {
+  transition: background-color 0.2s;
+}
+
+.lb-row:hover {
+  background-color: rgba(41, 46, 66, 0.8);
+}
+
+/* Highlight the current user's row */
+.lb-row.me {
+  background-color: #364A82; /* Tokyo Night selection */
+  color: #ffffff;
+}
+
+.lb-row.me td {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.lb-empty, .lb-loading, .lb-error {
+  padding: 2rem;
+  text-align: center;
+  color: #565f89;
+  font-style: italic;
+}

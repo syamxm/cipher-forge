@@ -38,3 +38,12 @@ export const api = {
     }),
   me: () => request("/auth/me"),
 };
+
+// ---- leaderboard (hateem) ----
+export const leaderboard = {
+  submit: (run_id) =>
+    request("/game/score", { method: "POST", body: JSON.stringify({ run_id }) }),
+  top: (difficulty = "all") =>
+    request(`/game/leaderboard?difficulty=${difficulty}`),
+};
+// ---- end leaderboard ----
