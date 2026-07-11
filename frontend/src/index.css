@@ -8,6 +8,7 @@
   --blue: #7aa2f7;
   --cyan: #7dcfff;
   --green: #9ece6a;
+  --green-light: #b9f27c;
   --magenta: #bb9af7;
   --red: #f7768e;
   --red-light: #ff8fa4;
@@ -262,30 +263,18 @@ a {
 }
 
 .topbar-link {
-  color: var(--fg-muted);
-  border: 1px solid var(--border);
+  color: var(--green);
+  border: 1px solid var(--green);
+  border-radius: 6px;
   padding: 6px 12px;
   font-size: 13px;
   text-decoration: none;
 }
 .topbar-link:hover {
   background: var(--bg-input);
-  color: var(--green);
-  border-color: var(--green);
-}
-
-.topbar-logout {
-  background: transparent;
-  color: var(--fg-muted);
-  border: 1px solid var(--border);
-  padding: 6px 12px;
-  font-size: 13px;
-  font-weight: 400;
-}
-.topbar-logout:hover:not(:disabled) {
-  background: var(--bg-input);
-  color: var(--red);
-  border-color: var(--red);
+  box-shadow: 0 0 10px rgba(158, 206, 106, 0.35);
+  color: var(--green-light);
+  border-color: var(--green-light);
 }
 .exit-run-btn {
   background: transparent;
