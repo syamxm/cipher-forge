@@ -363,8 +363,32 @@ a {
   background: var(--red-light);
 }
 
+.scramble-pre {
+  margin: 14px 0;
+  padding: 10px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.scramble-locked {
+  color: var(--green);
+}
+.scramble-dim {
+  color: #565f89;
+}
+.scramble-cursor {
+  color: var(--green);
+  animation: blink 1.1s step-end infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .prompt::after {
+  .prompt::after,
+  .scramble-cursor {
     animation: none;
   }
 }
