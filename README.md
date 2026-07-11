@@ -6,6 +6,22 @@ stage manually with hints about which operation to use.
 
 Course project — CSC669 Cryptography Algorithm, UiTM.
 
+## Live Demo
+
+Play it at **[cipher-forge.syamxm.com](https://cipher-forge.syamxm.com)** —
+register an account and play directly in the browser, no install needed.
+
+## Screenshots
+
+<!-- Screenshots will be added before submission. -->
+
+![Login screen](docs/screenshots/login.png)
+![Stage 1 — Prime Selection](docs/screenshots/select_prime.png)
+![Stage 2 — Key Generation](docs/screenshots/select_exp.png)
+![Stage 3 — Encryption](docs/screenshots/encrypt_msg.png)
+![Stage 4 — Decryption](docs/screenshots/decrypt_msg.png)
+![Leaderboard](docs/screenshots/leaderboard.png)
+
 ## Stack
 
 - Backend: FastAPI (Python), Motor (async MongoDB)
@@ -172,3 +188,11 @@ direct/local access only.
 | GET    | /api/game/ping           | yes  | Stub — game routes go here  |
 
 Game and leaderboard endpoints are stubbed in `backend/app/routers/game.py`.
+
+## Team
+
+| Member | Role |
+|--------|------|
+| AHMAD SYAMIM BIN MOHD NIZAM | Game UI Polish, Auth & Infrastructure & Report |
+| MOHAMAD HATEEM BIN NAZAMID | Leaderboard & Report |
+| MOHAMAD ASYRAF BIN ASHARI | Game UI Polish, RSA Game Engine (Stages 1–4) & Report |
