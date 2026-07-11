@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Terminal from "./Terminal";
 import CountdownBar from "./CountdownBar";
+import ScrambleReveal from "./ScrambleReveal";
 import useCountdown from "../useCountdown";
 import { engine } from "../api";
 
@@ -8,8 +9,24 @@ export default function Stage4({ runCtx, remainingSec, onDone, onExpired }) {
   const [dInput, setDInput] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+  const [revealDone, setRevealDone] = useState(false);
 
-  const { remaining, pct } = useCountdown(remainingSec, onExpired);
+  const { remaining, pct } = useCountdown(
+    remainingSec,
+    result ? () => {} : onExpired
+  );
+
+  const plaintextTokens = useMemo(
+    () => (result ? result.plaintext.split("") : []),
+    [result]
+  );
+
+  useEffect(() => {
+    if (!revealDone) return;
+    const id = setTimeout(() => onDone(result), 800);
+    return () => clearTimeout(id);
+  }, [revealDone]);
 
   async function handleSubmit() {
     if (!dInput) { setError("Enter your private key d."); return; }
@@ -20,7 +37,7 @@ export default function Stage4({ runCtx, remainingSec, onDone, onExpired }) {
       const data = await engine.stage4(runCtx.run_id, dInput);
       if (data.expired) { onExpired(); return; }
       if (!data.ok) { setError(data.reason); setLoading(false); return; }
-      onDone(data);
+      setResult(data);
     } catch (err) {
       setError(err.message);
       setLoading(false);
@@ -51,28 +68,41 @@ export default function Stage4({ runCtx, remainingSec, onDone, onExpired }) {
         [{runCtx.ciphertext.join(", ")}]
       </div>
 
-      <div className="form">
-        <label>
-          Your private key d
-          <input
-            type="number"
-            value={dInput}
-            onChange={(e) => { setDInput(e.target.value); setError(""); }}
-            placeholder="enter d…"
-            autoFocus
+      {result ? (
+        <>
+          <p className="muted">plaintext:</p>
+          <ScrambleReveal
+            tokens={plaintextTokens}
+            separator=""
+            onDone={() => setRevealDone(true)}
           />
-        </label>
-      </div>
+        </>
+      ) : (
+        <>
+          <div className="form">
+            <label>
+              Your private key d
+              <input
+                type="number"
+                value={dInput}
+                onChange={(e) => { setDInput(e.target.value); setError(""); }}
+                placeholder="enter d…"
+                autoFocus
+              />
+            </label>
+          </div>
 
-      {error && <p className="error">{error}</p>}
+          {error && <p className="error">{error}</p>}
 
-      <button
-        onClick={handleSubmit}
-        disabled={loading || !dInput}
-        style={{ marginTop: "8px", width: "100%" }}
-      >
-        {loading ? "decrypting…" : "Decrypt →"}
-      </button>
+          <button
+            onClick={handleSubmit}
+            disabled={loading || !dInput}
+            style={{ marginTop: "8px", width: "100%" }}
+          >
+            {loading ? "decrypting…" : "Decrypt →"}
+          </button>
+        </>
+      )}
     </Terminal>
   );
 }

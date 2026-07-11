@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Terminal from "./Terminal";
 import CountdownBar from "./CountdownBar";
+import ScrambleReveal from "./ScrambleReveal";
 import useCountdown from "../useCountdown";
 import { engine } from "../api";
 
@@ -8,8 +9,24 @@ export default function Stage3({ runCtx, remainingSec, onDone, onExpired }) {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+  const [revealDone, setRevealDone] = useState(false);
 
   const { remaining, pct } = useCountdown(remainingSec, onExpired);
+
+  const cipherTokens = useMemo(
+    () => (result ? result.ciphertext.map(String) : []),
+    [result]
+  );
+
+  useEffect(() => {
+    if (!revealDone) return;
+    const id = setTimeout(
+      () => onDone({ message: result.message, ciphertext: result.ciphertext }),
+      800
+    );
+    return () => clearTimeout(id);
+  }, [revealDone]);
 
   async function handleSubmit() {
     if (!message.trim()) { setError("Enter a message to encrypt."); return; }
@@ -20,7 +37,7 @@ export default function Stage3({ runCtx, remainingSec, onDone, onExpired }) {
       const data = await engine.stage3(runCtx.run_id, message);
       if (data.expired) { onExpired(); return; }
       if (!data.ok) { setError(data.reason); setLoading(false); return; }
-      onDone({ message, ciphertext: data.ciphertext });
+      setResult({ message, ciphertext: data.ciphertext });
     } catch (err) {
       setError(err.message);
       setLoading(false);
@@ -37,29 +54,38 @@ export default function Stage3({ runCtx, remainingSec, onDone, onExpired }) {
         encrypted as c = m^e mod n.
       </p>
 
-      <div className="form">
-        <label>
-          Plaintext message
-          <input
-            type="text"
-            value={message}
-            maxLength={200}
-            onChange={(e) => { setMessage(e.target.value); setError(""); }}
-            placeholder="type your message…"
-            autoFocus
-          />
-        </label>
-      </div>
+      {result ? (
+        <>
+          <p className="muted">ciphertext:</p>
+          <ScrambleReveal tokens={cipherTokens} onDone={() => setRevealDone(true)} />
+        </>
+      ) : (
+        <>
+          <div className="form">
+            <label>
+              Plaintext message
+              <input
+                type="text"
+                value={message}
+                maxLength={200}
+                onChange={(e) => { setMessage(e.target.value); setError(""); }}
+                placeholder="type your message…"
+                autoFocus
+              />
+            </label>
+          </div>
 
-      {error && <p className="error">{error}</p>}
+          {error && <p className="error">{error}</p>}
 
-      <button
-        onClick={handleSubmit}
-        disabled={loading || !message.trim()}
-        style={{ marginTop: "8px", width: "100%" }}
-      >
-        {loading ? "encrypting…" : "Encrypt →"}
-      </button>
+          <button
+            onClick={handleSubmit}
+            disabled={loading || !message.trim()}
+            style={{ marginTop: "8px", width: "100%" }}
+          >
+            {loading ? "encrypting…" : "Encrypt →"}
+          </button>
+        </>
+      )}
     </Terminal>
   );
 }
