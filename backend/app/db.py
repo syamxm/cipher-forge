@@ -8,6 +8,7 @@ db = client[settings.mongo_db]
 
 async def ensure_indexes() -> None:
     await db.users.create_index("username", unique=True)
+    await db.runs.create_index([("user_id", 1), ("status", 1)])
 
     # ---- leaderboard indexes (hateem) ----
     await db.scores.create_index([("difficulty", 1), ("score", -1)])

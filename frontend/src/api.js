@@ -39,6 +39,34 @@ export const api = {
   me: () => request("/auth/me"),
 };
 
+export const engine = {
+  start: (difficulty) =>
+    request("/game/start", {
+      method: "POST",
+      body: JSON.stringify({ difficulty }),
+    }),
+  stage1: (run_id, p, q) =>
+    request("/game/stage1", {
+      method: "POST",
+      body: JSON.stringify({ run_id, p, q }),
+    }),
+  stage2: (run_id, e, d) =>
+    request("/game/stage2", {
+      method: "POST",
+      body: JSON.stringify({ run_id, e, d: Number(d) }),
+    }),
+  stage3: (run_id, message) =>
+    request("/game/stage3", {
+      method: "POST",
+      body: JSON.stringify({ run_id, message }),
+    }),
+  stage4: (run_id, d) =>
+    request("/game/stage4", {
+      method: "POST",
+      body: JSON.stringify({ run_id, d: Number(d) }),
+    }),
+};
+
 // ---- leaderboard (hateem) ----
 export const leaderboard = {
   submit: (run_id) =>

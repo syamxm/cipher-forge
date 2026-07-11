@@ -19,3 +19,29 @@ class TokenResponse(BaseModel):
 class UserResponse(BaseModel):
     id: str
     username: str
+
+class StartRequest(BaseModel):
+    difficulty: str = Field(pattern=r"^(easy|medium|hard)$")
+ 
+ 
+class Stage1Request(BaseModel):
+    run_id: str
+    p: int
+    q: int
+ 
+ 
+class Stage2Request(BaseModel):
+    run_id: str
+    e: int
+    d: int
+ 
+ 
+class Stage3Request(BaseModel):
+    run_id: str
+    message: str = Field(min_length=1, max_length=200)
+ 
+ 
+class Stage4Request(BaseModel):
+    run_id: str
+    d: int
+ 
