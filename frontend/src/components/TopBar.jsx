@@ -10,14 +10,11 @@ export default function TopBar() {
         <img src="/linux_tux.jpg" alt="Cipher Forge logo" className="topbar-logo" />
         <span>Cipher Forge</span>
       </Link>
-      <button className="exit-run-btn" onClick={logout}>
-        logout
-      </button>
       <div className="topbar-actions">
         <Link to="/leaderboard" className="topbar-link">
           leaderboard
         </Link>
-        <button className="topbar-logout" onClick={logout}>
+        <button className="exit-run-btn" onClick={logout}>
           logout
         </button>
       </div>
