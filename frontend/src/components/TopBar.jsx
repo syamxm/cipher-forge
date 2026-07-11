@@ -13,6 +13,14 @@ export default function TopBar() {
       <button className="exit-run-btn" onClick={logout}>
         logout
       </button>
+      <div className="topbar-actions">
+        <Link to="/leaderboard" className="topbar-link">
+          leaderboard
+        </Link>
+        <button className="topbar-logout" onClick={logout}>
+          logout
+        </button>
+      </div>
     </header>
   );
 }

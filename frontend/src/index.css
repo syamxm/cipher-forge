@@ -219,6 +219,25 @@ a {
   object-fit: cover;
 }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar-link {
+  color: var(--fg-muted);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  font-size: 13px;
+  text-decoration: none;
+}
+.topbar-link:hover {
+  background: var(--bg-input);
+  color: var(--green);
+  border-color: var(--green);
+}
+
 .topbar-logout {
   background: transparent;
   color: var(--fg-muted);
