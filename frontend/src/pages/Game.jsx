@@ -16,8 +16,16 @@ export default function Game() {
       difficulty:     data.difficulty,
       candidates:     data.candidates,
       time_limit_sec: data.time_limit_sec,
+      startedAt:      Date.now(),
+      remainingSec:   data.time_limit_sec,
     });
     setScreen("stage1");
+  }
+
+   function getRemainingSeconds() {
+    if (!runCtx) return 0;
+    const elapsed = (Date.now() - runCtx.startedAt) / 1000;
+    return Math.max(0, Math.floor(runCtx.time_limit_sec - elapsed));
   }
 
   function handleExpired() {
@@ -25,17 +33,17 @@ export default function Game() {
   }
 
   function handleStage1Done(data) {
-    setRunCtx((prev) => ({ ...prev, n: data.n, phi: data.phi, e_options: data.e_options }));
+    setRunCtx((prev) => ({ ...prev, n: data.n, phi: data.phi, e_options: data.e_options, remainingSec: Math.max(0, Math.floor(prev.time_limit_sec - (Date.now() - prev.startedAt) / 1000)),}));
     setScreen("stage2");
   }
 
   function handleStage2Done({ e, d }) {
-    setRunCtx((prev) => ({ ...prev, e, d }));
+    setRunCtx((prev) => ({ ...prev, e, d, remainingSec: Math.max(0, Math.floor(prev.time_limit_sec - (Date.now() - prev.startedAt) / 1000))}));
     setScreen("stage3");
   }
 
   function handleStage3Done(data) {
-    setRunCtx((prev) => ({ ...prev, message: data.message, ciphertext: data.ciphertext }));
+    setRunCtx((prev) => ({ ...prev, message: data.message, ciphertext: data.ciphertext, remainingSec: Math.max(0, Math.floor(prev.time_limit_sec - (Date.now() - prev.startedAt) / 1000))}));
     setScreen("stage4");
   }
 
@@ -58,6 +66,7 @@ export default function Game() {
       {screen === "stage1" && (
         <Stage1
           runCtx={runCtx}
+          remainingSec={runCtx.remainingSec}
           onDone={handleStage1Done}
           onExpired={handleExpired}
         />
@@ -66,6 +75,7 @@ export default function Game() {
       {screen === "stage2" && (
         <Stage2
           runCtx={runCtx}
+          remainingSec={runCtx.remainingSec}
           onDone={handleStage2Done}
           onExpired={handleExpired}
         />
@@ -74,6 +84,7 @@ export default function Game() {
       {screen === "stage3" && (
         <Stage3
           runCtx={runCtx}
+          remainingSec={runCtx.remainingSec}
           onDone={handleStage3Done}
           onExpired={handleExpired}
         />
@@ -82,6 +93,7 @@ export default function Game() {
       {screen === "stage4" && (
         <Stage4
           runCtx={runCtx}
+          remainingSec={runCtx.remainingSec}
           onDone={handleStage4Done}
           onExpired={handleExpired}
         />

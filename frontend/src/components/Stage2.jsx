@@ -4,13 +4,13 @@ import CountdownBar from "./CountdownBar";
 import useCountdown from "../useCountdown";
 import { engine } from "../api";
 
-export default function Stage2({ runCtx, onDone, onExpired }) {
+export default function Stage2({ runCtx, remainingSec, onDone, onExpired }) {
   const [chosenE, setChosenE] = useState(null);
   const [dInput, setDInput]   = useState("");
   const [error, setError]     = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { remaining, pct } = useCountdown(runCtx.time_limit_sec, onExpired);
+  const { remaining, pct } = useCountdown(remainingSec, onExpired);
 
   function computeD(e, phi) {
     let [old_r, r]   = [e, phi];
