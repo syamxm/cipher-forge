@@ -6,6 +6,7 @@ import Game from "./pages/Game";
 // ---- leaderboard (hateem) ----
 import Leaderboard from "./pages/Leaderboard";
 // ---- end leaderboard ----
+import TopBar from "./components/TopBar";
 
 function Booting() {
   return <div className="screen center muted">booting…</div>;
@@ -15,7 +16,12 @@ function Protected({ children }) {
   const { user, loading } = useAuth();
   if (loading) return <Booting />;
   if (!user) return <Navigate to="/login" replace />;
-  return children;
+  return (
+    <div className="authed">
+      <TopBar />
+      {children}
+    </div>
+  );
 }
 
 function PublicOnly({ children }) {
