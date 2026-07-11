@@ -4,7 +4,7 @@ import CountdownBar from "./CountdownBar";
 import useCountdown from "../useCountdown";
 import { engine } from "../api";
 
-export default function Stage1({ runCtx, onDone, onExpired }) {
+export default function Stage1({ runCtx, remainingSec, onDone, onExpired }) {
   const [selected, setSelected] = useState([]);   
   const [error, setError]       = useState("");
   const [loading, setLoading]   = useState(false);
