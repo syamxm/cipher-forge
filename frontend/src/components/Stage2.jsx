@@ -50,7 +50,7 @@ export default function Stage2({ runCtx, remainingSec, onDone, onExpired }) {
   }
 
   return (
-    <Terminal title="cryptoforge — stage 2: key generation">
+    <Terminal title="cipher-forge — stage 2: key generation">
       <CountdownBar remaining={remaining} pct={pct} />
 
       <p className="prompt">generate your key pair</p>
@@ -67,13 +67,16 @@ export default function Stage2({ runCtx, remainingSec, onDone, onExpired }) {
         {runCtx.e_options.map((e) => (
           <button
             key={e}
+            className="choice-btn"
             onClick={() => handlePickE(e)}
             style={{
-              background: chosenE === e ? "var(--cyan)" : "var(--bg-input)",
-              color: chosenE === e ? "var(--bg-titlebar)" : "var(--fg)",
-              border: `1px solid ${chosenE === e ? "var(--cyan)" : "var(--border)"}`,
               padding: "8px 14px",
-              fontWeight: chosenE === e ? 700 : 400,
+              ...(chosenE === e && {
+                background: "var(--cyan)",
+                color: "var(--bg-titlebar)",
+                borderColor: "var(--cyan)",
+                fontWeight: 700,
+              }),
             }}
           >
             {e}
@@ -82,16 +85,7 @@ export default function Stage2({ runCtx, remainingSec, onDone, onExpired }) {
       </div>
 
       {shownD !== null && (
-        <div
-          style={{
-            background: "var(--bg-input)",
-            border: "1px solid var(--green)",
-            borderRadius: "6px",
-            padding: "10px 14px",
-            marginBottom: "14px",
-            fontSize: "13px",
-          }}
-        >
+        <div className="info-panel success" style={{ marginBottom: "14px" }}>
           <span style={{ color: "var(--fg-muted)" }}>private key d = </span>
           <span style={{ color: "var(--green)", fontWeight: 700 }}>{shownD}</span>
           <span style={{ color: "var(--fg-muted)", marginLeft: "8px" }}>

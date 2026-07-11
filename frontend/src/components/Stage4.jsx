@@ -6,7 +6,7 @@ import { engine } from "../api";
 
 export default function Stage4({ runCtx, remainingSec, onDone, onExpired }) {
   const [dInput, setDInput] = useState("");
-  const [error, setError]   = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { remaining, pct } = useCountdown(remainingSec, onExpired);
@@ -19,7 +19,7 @@ export default function Stage4({ runCtx, remainingSec, onDone, onExpired }) {
     try {
       const data = await engine.stage4(runCtx.run_id, dInput);
       if (data.expired) { onExpired(); return; }
-      if (!data.ok)     { setError(data.reason); setLoading(false); return; }
+      if (!data.ok) { setError(data.reason); setLoading(false); return; }
       onDone(data);
     } catch (err) {
       setError(err.message);
@@ -28,7 +28,7 @@ export default function Stage4({ runCtx, remainingSec, onDone, onExpired }) {
   }
 
   return (
-    <Terminal title="cryptoforge — stage 4: decryption">
+    <Terminal title="cipher-forge — stage 4: decryption">
       <CountdownBar remaining={remaining} pct={pct} />
 
       <p className="prompt">decrypt the message</p>
@@ -37,13 +37,9 @@ export default function Stage4({ runCtx, remainingSec, onDone, onExpired }) {
       </p>
 
       <div
+        className="info-panel"
         style={{
-          background: "var(--bg-input)",
-          border: "1px solid var(--border)",
-          borderRadius: "6px",
-          padding: "10px 14px",
           margin: "14px 0",
-          fontSize: "12px",
           color: "var(--cyan)",
           wordBreak: "break-all",
           lineHeight: "1.8",

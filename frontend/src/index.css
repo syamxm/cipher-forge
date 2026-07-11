@@ -4,12 +4,14 @@
   --bg-titlebar: #1d202f;
   --bg-input: #1a1b26;
   --fg: #c0caf5;
-  --fg-muted: #565f89;
+  --fg-muted: #9aa5ce;
   --blue: #7aa2f7;
   --cyan: #7dcfff;
   --green: #9ece6a;
+  --green-light: #b9f27c;
   --magenta: #bb9af7;
   --red: #f7768e;
+  --red-light: #ff8fa4;
   --yellow: #e0af68;
   --border: #3b4261;
   --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular,
@@ -49,6 +51,10 @@ body {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+}
+
+.terminal-wide {
+  max-width: 880px;
 }
 
 .titlebar {
@@ -133,6 +139,11 @@ input {
   font-family: inherit;
   font-size: 14px;
 }
+input::placeholder {
+  color: var(--fg-muted);
+  opacity: 1;
+}
+
 input:focus {
   outline: 2px solid var(--blue);
   outline-offset: 0;
@@ -154,8 +165,34 @@ button:hover:not(:disabled) {
   background: var(--cyan);
 }
 button:disabled {
-  opacity: 0.6;
+  opacity: 0.7;
   cursor: not-allowed;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.choice-btn {
+  background: var(--bg-input);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  font-weight: 400;
+}
+.choice-btn:hover:not(:disabled) {
+  background: var(--bg-panel);
+}
+
+.info-panel {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+.info-panel.success {
+  border-color: var(--green);
 }
 
 .error {
@@ -225,47 +262,51 @@ a {
   gap: 10px;
 }
 
-.topbar-link {
+.topbar-user {
+  display: inline-block;
+  color: var(--cyan);
+  font-size: 13px;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 4px;
+}
+.topbar-user::before {
+  content: "@";
   color: var(--fg-muted);
-  border: 1px solid var(--border);
+}
+
+.topbar-link {
+  display: inline-block;
+  color: var(--green);
+  border: 1px solid var(--green);
+  border-radius: 6px;
   padding: 6px 12px;
   font-size: 13px;
+  line-height: 1.2;
   text-decoration: none;
 }
 .topbar-link:hover {
   background: var(--bg-input);
-  color: var(--green);
-  border-color: var(--green);
-}
-
-.topbar-logout {
-  background: transparent;
-  color: var(--fg-muted);
-  border: 1px solid var(--border);
-  padding: 6px 12px;
-  font-size: 13px;
-  font-weight: 400;
-}
-.topbar-logout:hover:not(:disabled) {
-  background: var(--bg-input);
-  color: var(--red);
-  border-color: var(--red);
+  box-shadow: 0 0 10px rgba(158, 206, 106, 0.35);
+  color: var(--green-light);
+  border-color: var(--green-light);
 }
 .exit-run-btn {
   background: transparent;
-  color: var(--fg-muted);
-  border: 1px solid var(--border);
+  color: var(--red-light);
+  border: 1px solid var(--red-light);
   padding: 6px 12px;
-  color: #ff8fa4;      
-  border-color: #ff8fa4;
   font-size: 13px;
   font-weight: 400;
+  line-height: 1.2;
 }
 .exit-run-btn:hover:not(:disabled) {
   background: var(--bg-input);
-  box-shadow: 0 0 10px rgba(252, 91, 91, 0.3);
-  color: #fc5b5b;      
-  border-color: #fc5b5b;
+  box-shadow: 0 0 10px rgba(247, 118, 142, 0.3);
+  color: var(--red);
+  border-color: var(--red);
 }
 .modal-overlay {
   position: fixed;
@@ -319,7 +360,7 @@ a {
   border: none;
 }
 .btn-danger:hover:not(:disabled) {
-  background: #ff8fa4;
+  background: var(--red-light);
 }
 
 @media (prefers-reduced-motion: reduce) {

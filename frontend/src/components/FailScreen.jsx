@@ -2,7 +2,7 @@ import Terminal from "./Terminal";
 
 export default function FailScreen({ onRetry }) {
   return (
-    <Terminal title="cryptoforge — time's up">
+    <Terminal title="cipher-forge — time's up">
       <p className="prompt" style={{ color: "var(--red)" }}>time expired</p>
       <p className="muted">
         You ran out of time before completing all stages. The run has been
@@ -12,13 +12,14 @@ export default function FailScreen({ onRetry }) {
         Try a lower difficulty or work faster!
       </p>
       <button
+        className="choice-btn"
         onClick={onRetry}
         style={{
           width: "100%",
           marginTop: "20px",
-          background: "var(--bg-input)",
           color: "var(--red)",
-          border: "1px solid var(--red)",
+          borderColor: "var(--red)",
+          fontWeight: 600,
         }}
       >
         Try again

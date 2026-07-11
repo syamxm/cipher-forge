@@ -34,9 +34,9 @@ export default function ScoreSubmit({ run_id }) {
 
   if (status === 'error') {
     return (
-      <div className="prompt muted">
+      <div className="error">
         {errorMsg}{' '}
-        <button onClick={submitScore} style={{ marginLeft: '0.5rem' }}>
+        <button onClick={submitScore} style={{ marginLeft: '8px' }}>
           retry
         </button>
       </div>

@@ -40,7 +40,7 @@ export default function DifficultyPicker({ onStarted }) {
   }
 
   return (
-    <Terminal title="cryptoforge — difficulty">
+    <Terminal title="cipher-forge — difficulty">
       <p className="prompt">select difficulty</p>
       <p className="muted">Choose how large the prime numbers will be.</p>
 
@@ -48,12 +48,12 @@ export default function DifficultyPicker({ onStarted }) {
         {LEVELS.map((lvl) => (
           <button
             key={lvl.id}
+            className="choice-btn"
             disabled={loading}
             onClick={() => handlePick(lvl.id)}
             style={{
-              background: "var(--bg-input)",
               color: lvl.color,
-              border: `1px solid ${lvl.color}`,
+              borderColor: lvl.color,
               textAlign: "left",
               padding: "12px 16px",
             }}

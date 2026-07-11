@@ -8,7 +8,7 @@ export default function SuccessScreen({ runCtx, onRetry }) {
   const secs = String(Math.floor(elapsed_sec % 60)).padStart(2, "0");
 
   return (
-    <Terminal title="cryptoforge — success!">
+    <Terminal title="cipher-forge — success!">
       <p className="prompt">run complete</p>
 
       <ul className="stages" style={{ marginTop: "16px" }}>
@@ -18,16 +18,7 @@ export default function SuccessScreen({ runCtx, onRetry }) {
         <li style={{ color: "var(--green)" }}>✓ Stage 4 — decryption</li>
       </ul>
 
-      <div
-        style={{
-          background: "var(--bg-input)",
-          border: "1px solid var(--green)",
-          borderRadius: "6px",
-          padding: "12px 16px",
-          margin: "16px 0",
-          fontSize: "13px",
-        }}
-      >
+      <div className="info-panel success" style={{ margin: "16px 0" }}>
         <div style={{ color: "var(--fg-muted)", marginBottom: "4px" }}>
           difficulty: <span style={{ color: "var(--fg)" }}>{difficulty}</span>
         </div>
