@@ -15,12 +15,13 @@ register an account and play directly in the browser, no install needed.
 
 <!-- Screenshots will be added before submission. -->
 
-![Login screen](docs/screenshots/login.png)
-![Stage 1 — Prime Selection](docs/screenshots/select_prime.png)
-![Stage 2 — Key Generation](docs/screenshots/select_exp.png)
-![Stage 3 — Encryption](docs/screenshots/encrypt_msg.png)
-![Stage 4 — Decryption](docs/screenshots/decrypt_msg.png)
-![Leaderboard](docs/screenshots/leaderboard.png)
+| Login | Stage 1 — Prime Selection | Stage 2 — Key Generation |
+| --- | --- | --- |
+| <img src="docs/screenshots/login.png" width="260"/> | <img src="docs/screenshots/select_prime.png" width="260"/> | <img src="docs/screenshots/select_exp.png" width="260"/> |
+
+| Stage 3 — Encryption | Stage 4 — Decryption | Leaderboard |
+| --- | --- | --- |
+| <img src="docs/screenshots/encrypt_msg.png" width="260"/> | <img src="docs/screenshots/decrypt_msg.png" width="260"/> | <img src="docs/screenshots/leaderboard.png" width="260"/> |
 
 ## Stack
 
