@@ -9,7 +9,7 @@ export default function Stage1({ runCtx, onDone, onExpired }) {
   const [error, setError]       = useState("");
   const [loading, setLoading]   = useState(false);
 
-  const { remaining, pct } = useCountdown(runCtx.time_limit_sec, onExpired);
+  const { remaining, pct } = useCountdown(remainingSec, onExpired);
 
   function toggle(num) {
     setError("");

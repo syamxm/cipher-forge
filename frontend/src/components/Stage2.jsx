@@ -10,7 +10,7 @@ export default function Stage2({ runCtx, onDone, onExpired }) {
   const [error, setError]     = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { remaining, pct } = useCountdown(runCtx.time_limit_sec, onExpired);
+  const { remaining, pct } = useCountdown(remainingSec, onExpired);
 
   function computeD(e, phi) {
     let [old_r, r]   = [e, phi];

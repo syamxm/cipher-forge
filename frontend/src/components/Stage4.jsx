@@ -9,7 +9,7 @@ export default function Stage4({ runCtx, onDone, onExpired }) {
   const [error, setError]   = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { remaining, pct } = useCountdown(runCtx.time_limit_sec, onExpired);
+  const { remaining, pct } = useCountdown(remainingSec, onExpired);
 
   async function handleSubmit() {
     if (!dInput) { setError("Enter your private key d."); return; }
