@@ -66,5 +66,12 @@ export const engine = {
       body: JSON.stringify({ run_id, d: Number(d) }),
     }),
 };
- 
-// Leaderboard export below this line
+
+// ---- leaderboard (hateem) ----
+export const leaderboard = {
+  submit: (run_id) =>
+    request("/game/score", { method: "POST", body: JSON.stringify({ run_id }) }),
+  top: (difficulty = "all") =>
+    request(`/game/leaderboard?difficulty=${difficulty}`),
+};
+// ---- end leaderboard ----

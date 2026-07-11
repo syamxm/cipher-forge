@@ -3,6 +3,9 @@ import { AuthProvider, useAuth } from "./auth";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Game from "./pages/Game";
+// ---- leaderboard (hateem) ----
+import Leaderboard from "./pages/Leaderboard";
+// ---- end leaderboard ----
 
 function Booting() {
   return <div className="screen center muted">booting…</div>;
@@ -30,6 +33,9 @@ export default function App() {
           <Route path="/login" element={<PublicOnly><Login /></PublicOnly>} />
           <Route path="/register" element={<PublicOnly><Register /></PublicOnly>} />
           <Route path="/" element={<Protected><Game /></Protected>} />
+          {/* ---- leaderboard (hateem) ---- */}
+          <Route path="/leaderboard" element={<Protected><Leaderboard /></Protected>} />
+          {/* ---- end leaderboard ---- */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

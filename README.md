@@ -134,7 +134,12 @@ pip install -r requirements.txt
 cp .env.example .env                       # point MONGO_URI at your local mongo
 uvicorn app.main:app --reload
 ```
-
+Fake Data test:
+```bash
+cd backend
+source .venv/bin/activate
+python scripts/seed_leaderboard.py   #restart uvicorn may needed                      
+```
 Frontend:
 ```bash
 cd frontend
