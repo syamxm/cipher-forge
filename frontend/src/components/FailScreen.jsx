@@ -12,13 +12,14 @@ export default function FailScreen({ onRetry }) {
         Try a lower difficulty or work faster!
       </p>
       <button
+        className="choice-btn"
         onClick={onRetry}
         style={{
           width: "100%",
           marginTop: "20px",
-          background: "var(--bg-input)",
           color: "var(--red)",
-          border: "1px solid var(--red)",
+          borderColor: "var(--red)",
+          fontWeight: 600,
         }}
       >
         Try again

@@ -1,7 +1,7 @@
-export default function Terminal({ title, children }) {
+export default function Terminal({ title, children, wide = false }) {
   return (
     <div className="screen center">
-      <div className="terminal">
+      <div className={wide ? "terminal terminal-wide" : "terminal"}>
         <div className="titlebar">
           <span className="dot red" />
           <span className="dot yellow" />

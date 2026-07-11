@@ -62,13 +62,16 @@ export default function Stage1({ runCtx, remainingSec, onDone, onExpired }) {
           return (
             <button
               key={num}
+              className="choice-btn"
               onClick={() => toggle(num)}
               style={{
-                background: isChosen ? "var(--magenta)" : "var(--bg-input)",
-                color: isChosen ? "var(--bg-titlebar)" : "var(--fg)",
-                border: `1px solid ${isChosen ? "var(--magenta)" : "var(--border)"}`,
                 padding: "10px 0",
-                fontWeight: isChosen ? 700 : 400,
+                ...(isChosen && {
+                  background: "var(--magenta)",
+                  color: "var(--bg-titlebar)",
+                  borderColor: "var(--magenta)",
+                  fontWeight: 700,
+                }),
               }}
             >
               {num}

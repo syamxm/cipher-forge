@@ -44,7 +44,7 @@ export default function Leaderboard() {
   const difficulties = ['all', 'easy', 'medium', 'hard'];
 
   return (
-    <Terminal title="cipher-forge — leaderboard">
+    <Terminal title="cipher-forge — leaderboard" wide>
       <div className="lb-wide">
         <div style={{ marginBottom: '1rem' }}>
           <Link to="/" className="lb-back">‹ back to game</Link>
@@ -62,38 +62,40 @@ export default function Leaderboard() {
           ))}
         </div>
 
-        {error && <div className="lb-error" style={{ color: 'red', margin: '1rem 0' }}>{error}</div>}
+        {error && <div className="lb-error">{error}</div>}
 
         {loading ? (
           <div className="lb-loading">Loading...</div>
         ) : entries.length === 0 ? (
           <div className="lb-empty">No scores found for this difficulty yet.</div>
         ) : (
-          <table className="lb-table">
-            <thead>
-              <tr>
-                <th>Rank</th>
-                <th>Player</th>
-                <th>Score</th>
-                <th>Time</th>
-                {difficulty === 'all' && <th>Difficulty</th>}
-              </tr>
-            </thead>
-            <tbody>
-              {entries.map((entry, idx) => {
-                const isMe = user?.username === entry.username;
-                return (
-                  <tr key={`${entry.username}-${entry.difficulty}-${entry.rank}-${idx}`} className={`lb-row ${isMe ? 'me' : ''}`}>
-                    <td>{entry.rank}</td>
-                    <td>{entry.username}</td>
-                    <td>{entry.score}</td>
-                    <td>{entry.elapsed_sec.toFixed(1)}s</td>
-                    {difficulty === 'all' && <td>{entry.difficulty}</td>}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div className="lb-table-wrap">
+            <table className="lb-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Player</th>
+                  <th>Score</th>
+                  <th>Time</th>
+                  {difficulty === 'all' && <th>Difficulty</th>}
+                </tr>
+              </thead>
+              <tbody>
+                {entries.map((entry, idx) => {
+                  const isMe = user?.username === entry.username;
+                  return (
+                    <tr key={`${entry.username}-${entry.difficulty}-${entry.rank}-${idx}`} className={`lb-row ${isMe ? 'me' : ''}`}>
+                      <td>{entry.rank}</td>
+                      <td className="lb-player" title={entry.username}>{entry.username}</td>
+                      <td>{entry.score}</td>
+                      <td>{entry.elapsed_sec.toFixed(1)}s</td>
+                      {difficulty === 'all' && <td>{entry.difficulty}</td>}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </Terminal>

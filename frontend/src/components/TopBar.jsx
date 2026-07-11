@@ -14,7 +14,7 @@ export default function TopBar() {
         <Link to="/leaderboard" className="topbar-link">
           leaderboard
         </Link>
-        <button className="exit-run-btn" onClick={logout}>
+        <button className="topbar-logout" onClick={logout}>
           logout
         </button>
       </div>

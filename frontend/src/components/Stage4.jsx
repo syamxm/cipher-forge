@@ -37,13 +37,9 @@ export default function Stage4({ runCtx, remainingSec, onDone, onExpired }) {
       </p>
 
       <div
+        className="info-panel"
         style={{
-          background: "var(--bg-input)",
-          border: "1px solid var(--border)",
-          borderRadius: "6px",
-          padding: "10px 14px",
           margin: "14px 0",
-          fontSize: "12px",
           color: "var(--cyan)",
           wordBreak: "break-all",
           lineHeight: "1.8",

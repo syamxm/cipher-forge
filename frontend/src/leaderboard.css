@@ -1,49 +1,54 @@
 /* leaderboard.css */
 .lb-wide {
   width: 100%;
-  max-width: 800px;
   margin: 0 auto;
 }
 
 .lb-back {
-  color: #7dcfff; /* Tokyo Night cyan */
+  color: var(--cyan);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 13px;
   transition: color 0.2s;
 }
 
 .lb-back:hover {
-  color: #c0caf5;
+  color: var(--fg);
   text-decoration: underline;
 }
 
 .lb-tabs {
   display: flex;
   gap: 15px;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid #565f89;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
   padding-bottom: 8px;
 }
 
 .lb-tab {
   background: transparent;
   border: none;
-  color: #565f89;
+  color: var(--fg-muted);
   cursor: pointer;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 15px;
+  font-weight: 400;
   padding: 5px 10px;
   transition: all 0.2s;
 }
 
-.lb-tab:hover {
-  color: #c0caf5;
+.lb-tab:hover:not(:disabled) {
+  color: var(--fg);
+  background: transparent;
 }
 
 .lb-tab.active {
-  color: #7aa2f7; /* Tokyo Night blue */
-  border-bottom: 2px solid #7aa2f7;
+  color: var(--blue);
+  border-bottom: 2px solid var(--blue);
   font-weight: bold;
+}
+
+.lb-table-wrap {
+  overflow-x: auto;
 }
 
 .lb-table {
@@ -54,17 +59,25 @@
 
 .lb-table th {
   padding: 12px 10px;
-  border-bottom: 1px dashed #565f89;
-  color: #9ece6a; /* Tokyo Night green */
+  border-bottom: 1px dashed var(--border);
+  color: var(--green);
   font-weight: normal;
   text-transform: uppercase;
   letter-spacing: 1px;
+  white-space: nowrap;
 }
 
 .lb-table td {
   padding: 12px 10px;
-  border-bottom: 1px solid rgba(86, 95, 137, 0.2);
-  color: #c0caf5;
+  border-bottom: 1px solid var(--border);
+  color: var(--fg);
+  white-space: nowrap;
+}
+
+.lb-player {
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .lb-row {
@@ -77,18 +90,24 @@
 
 /* Highlight the current user's row */
 .lb-row.me {
-  background-color: #364A82; /* Tokyo Night selection */
-  color: #ffffff;
+  background-color: #364a82; /* Tokyo Night selection */
 }
 
 .lb-row.me td {
-  color: #ffffff;
+  color: var(--fg);
   font-weight: bold;
 }
 
-.lb-empty, .lb-loading, .lb-error {
+.lb-empty, .lb-loading {
   padding: 2rem;
   text-align: center;
-  color: #565f89;
+  color: var(--fg-muted);
+  font-style: italic;
+}
+
+.lb-error {
+  padding: 2rem;
+  text-align: center;
+  color: var(--red);
   font-style: italic;
 }
