@@ -177,6 +177,62 @@ a {
   color: var(--blue);
 }
 
+.authed {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+.authed .screen {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.authed .center {
+  align-items: safe center;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: var(--bg-titlebar);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--fg);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.topbar-logo {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.topbar-logout {
+  background: transparent;
+  color: var(--fg-muted);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 400;
+}
+.topbar-logout:hover:not(:disabled) {
+  background: var(--bg-input);
+  color: var(--red);
+  border-color: var(--red);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .prompt::after {
     animation: none;
