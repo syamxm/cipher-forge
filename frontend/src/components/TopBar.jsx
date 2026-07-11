@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../auth";
 
 export default function TopBar() {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <header className="topbar">
@@ -11,6 +11,11 @@ export default function TopBar() {
         <span>Cipher Forge</span>
       </Link>
       <div className="topbar-actions">
+        {user && (
+          <span className="topbar-user" title={user.username}>
+            {user.username}
+          </span>
+        )}
         <Link to="/leaderboard" className="topbar-link">
           leaderboard
         </Link>

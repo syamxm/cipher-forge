@@ -262,6 +262,21 @@ a {
   gap: 10px;
 }
 
+.topbar-user {
+  display: inline-block;
+  color: var(--cyan);
+  font-size: 13px;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 4px;
+}
+.topbar-user::before {
+  content: "@";
+  color: var(--fg-muted);
+}
+
 .topbar-link {
   display: inline-block;
   color: var(--green);
