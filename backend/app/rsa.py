@@ -1,8 +1,8 @@
 import random
 DIFFICULTY = {
-    "easy":   {"prime_min": 17,  "prime_max": 50,  "time_limit_sec": 300},
-    "medium": {"prime_min": 50,  "prime_max": 150, "time_limit_sec": 180},
-    "hard":   {"prime_min": 150, "prime_max": 255, "time_limit_sec": 120},
+    "easy":   {"prime_min": 11,  "prime_max": 99,  "pool_size": 5,  "num_primes": 3, "time_limit_sec": 300},
+    "medium": {"prime_min": 100, "prime_max": 499, "pool_size": 10, "num_primes": 4, "time_limit_sec": 180},
+    "hard":   {"prime_min": 100, "prime_max": 999, "pool_size": 15, "num_primes": 5, "time_limit_sec": 120},
 }
 
 def is_prime(n: int) -> bool:
@@ -90,16 +90,16 @@ def random_candidates(difficulty: str) -> list[int]:
     Rules:
     - Contains a mix of real primes (in the difficulty range) and composite
       numbers (decoys), shuffled.
-    - Guarantees at least 4 primes so the player always has valid choices.
+    - Guarantees enough primes so the player always has valid choices.
     - Guarantees at least one valid (p, q) pair where n = p*q > 255.
-    - Pool size: 10 numbers total.
+    - Pool size and prime count come from the difficulty config.
     """
     cfg = DIFFICULTY[difficulty]
     lo, hi = cfg["prime_min"], cfg["prime_max"]
 
     all_primes = [n for n in range(lo, hi + 1) if is_prime(n)]
 
-    chosen_primes = random.sample(all_primes, min(4, len(all_primes)))
+    chosen_primes = random.sample(all_primes, min(cfg["num_primes"], len(all_primes)))
 
     chosen_primes.sort()
     while len(chosen_primes) >= 2 and chosen_primes[0] * chosen_primes[1] <= 255:
@@ -110,7 +110,7 @@ def random_candidates(difficulty: str) -> list[int]:
         chosen_primes.sort()
 
     composites = [n for n in range(lo, hi + 1) if not is_prime(n)]
-    num_decoys = 10 - len(chosen_primes)
+    num_decoys = cfg["pool_size"] - len(chosen_primes)
     chosen_decoys = random.sample(composites, min(num_decoys, len(composites)))
 
     pool = chosen_primes + chosen_decoys

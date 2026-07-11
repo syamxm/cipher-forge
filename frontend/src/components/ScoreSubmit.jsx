@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { leaderboard } from '../api';
 
-export default function ScoreSubmit({ run_id, elapsed_sec, difficulty }) {
-  const [status, setStatus] = useState('submitting'); // 'submitting', 'success', 'error'
+export default function ScoreSubmit({ run_id }) {
+  const [status, setStatus] = useState('idle');
   const [result, setResult] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-
-  const hasSubmitted = useRef(false);
 
   const submitScore = async () => {
     setStatus('submitting');
@@ -22,23 +20,25 @@ export default function ScoreSubmit({ run_id, elapsed_sec, difficulty }) {
     }
   };
 
-  useEffect(() => {
-    if (!hasSubmitted.current) {
-      hasSubmitted.current = true;
-      submitScore();
-    }
-    // We only want to execute this submission once on mount.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (status === 'submitting') {
-    return <div className="prompt muted">recording your run…</div>;
+  if (status === 'idle' || status === 'submitting') {
+    return (
+      <button
+        onClick={submitScore}
+        disabled={status === 'submitting'}
+        style={{ width: '100%', marginTop: '8px' }}
+      >
+        {status === 'submitting' ? 'recording your run…' : 'Submit Score'}
+      </button>
+    );
   }
 
   if (status === 'error') {
     return (
       <div className="prompt muted">
-        {errorMsg} <button onClick={submitScore} style={{ marginLeft: '0.5rem' }}>retry</button>
+        {errorMsg}{' '}
+        <button onClick={submitScore} style={{ marginLeft: '0.5rem' }}>
+          retry
+        </button>
       </div>
     );
   }
@@ -46,7 +46,9 @@ export default function ScoreSubmit({ run_id, elapsed_sec, difficulty }) {
   return (
     <div className="prompt">
       rank #{result?.rank} · score {result?.score}{' '}
-      <Link to="/leaderboard" style={{ marginLeft: '0.5rem' }}>view leaderboard ›</Link>
+      <Link to="/leaderboard" style={{ marginLeft: '0.5rem' }}>
+        view leaderboard ›
+      </Link>
     </div>
   );
 }
