@@ -6,7 +6,7 @@ import { engine } from "../api";
 
 export default function Stage3({ runCtx, remainingSec, onDone, onExpired }) {
   const [message, setMessage] = useState("");
-  const [error, setError]     = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { remaining, pct } = useCountdown(remainingSec, onExpired);
@@ -19,7 +19,7 @@ export default function Stage3({ runCtx, remainingSec, onDone, onExpired }) {
     try {
       const data = await engine.stage3(runCtx.run_id, message);
       if (data.expired) { onExpired(); return; }
-      if (!data.ok)     { setError(data.reason); setLoading(false); return; }
+      if (!data.ok) { setError(data.reason); setLoading(false); return; }
       onDone({ message, ciphertext: data.ciphertext });
     } catch (err) {
       setError(err.message);
@@ -28,7 +28,7 @@ export default function Stage3({ runCtx, remainingSec, onDone, onExpired }) {
   }
 
   return (
-    <Terminal title="cryptoforge — stage 3: encryption">
+    <Terminal title="cipher-forge — stage 3: encryption">
       <CountdownBar remaining={remaining} pct={pct} />
 
       <p className="prompt">encrypt a message</p>

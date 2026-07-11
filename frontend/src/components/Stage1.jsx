@@ -40,7 +40,7 @@ export default function Stage1({ runCtx, remainingSec, onDone, onExpired }) {
   }
 
   return (
-    <Terminal title="cryptoforge — stage 1: prime selection">
+    <Terminal title="cipher-forge — stage 1: prime selection">
       <CountdownBar remaining={remaining} pct={pct} />
 
       <p className="prompt">select p and q</p>

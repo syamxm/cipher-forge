@@ -40,7 +40,7 @@ export default function DifficultyPicker({ onStarted }) {
   }
 
   return (
-    <Terminal title="cryptoforge — difficulty">
+    <Terminal title="cipher-forge — difficulty">
       <p className="prompt">select difficulty</p>
       <p className="muted">Choose how large the prime numbers will be.</p>
 

@@ -8,7 +8,7 @@ export default function SuccessScreen({ runCtx, onRetry }) {
   const secs = String(Math.floor(elapsed_sec % 60)).padStart(2, "0");
 
   return (
-    <Terminal title="cryptoforge — success!">
+    <Terminal title="cipher-forge — success!">
       <p className="prompt">run complete</p>
 
       <ul className="stages" style={{ marginTop: "16px" }}>

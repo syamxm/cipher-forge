@@ -50,7 +50,7 @@ export default function Stage2({ runCtx, remainingSec, onDone, onExpired }) {
   }
 
   return (
-    <Terminal title="cryptoforge — stage 2: key generation">
+    <Terminal title="cipher-forge — stage 2: key generation">
       <CountdownBar remaining={remaining} pct={pct} />
 
       <p className="prompt">generate your key pair</p>
