@@ -232,6 +232,76 @@ a {
   color: var(--red);
   border-color: var(--red);
 }
+.exit-run-btn {
+  background: transparent;
+  color: var(--fg-muted);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  color: #ff8fa4;      
+  border-color: #ff8fa4;
+  font-size: 13px;
+  font-weight: 400;
+}
+.exit-run-btn:hover:not(:disabled) {
+  background: var(--bg-input);
+  box-shadow: 0 0 10px rgba(252, 91, 91, 0.3);
+  color: #fc5b5b;      
+  border-color: #fc5b5b;
+}
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.modal-panel {
+  width: 100%;
+  max-width: 340px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+}
+.modal-title {
+  color: var(--fg);
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+.modal-body {
+  color: var(--fg-muted);
+  font-size: 13px;
+  margin: 0 0 18px;
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.modal-actions button {
+  padding: 8px 14px;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--fg-muted);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: var(--bg-input);
+  color: var(--fg);
+}
+.btn-danger {
+  background: var(--red);
+  color: var(--bg-titlebar);
+  border: none;
+}
+.btn-danger:hover:not(:disabled) {
+  background: #ff8fa4;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .prompt::after {
