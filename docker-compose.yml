@@ -30,8 +30,6 @@ services:
     restart: unless-stopped
     depends_on:
       - backend
-    ports:
-      - "8888:80"
     networks:
       - internal
       - proxy-net
