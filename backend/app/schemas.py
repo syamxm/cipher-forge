@@ -33,7 +33,7 @@ class Stage1Request(BaseModel):
 class Stage2Request(BaseModel):
     run_id: str
     e: int
-    d: int
+    d: int = Field(gt=0)
  
  
 class Stage3Request(BaseModel):
@@ -43,5 +43,5 @@ class Stage3Request(BaseModel):
  
 class Stage4Request(BaseModel):
     run_id: str
-    d: int
+    d: int = Field(gt=0)
  

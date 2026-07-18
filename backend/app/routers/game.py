@@ -209,6 +209,10 @@ async def stage3(body: Stage3Request, user: dict = Depends(get_current_user)):
 
     n = run["n"]
     e = run["e"]
+
+    if any(ord(ch) >= n for ch in body.message):
+        return {"ok": False, "reason": f"Message characters must have code below n={n}. Use plain ASCII."}
+
     ciphertext = encrypt(body.message, e, n)
 
     await db.runs.update_one(

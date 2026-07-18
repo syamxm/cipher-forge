@@ -7,19 +7,19 @@ const LEVELS = [
     id: "easy",
     label: "Easy",
     color: "var(--green)",
-    desc: "Primes 17–50 · 5 min",
+    desc: "Primes 11–99 · 5 min",
   },
   {
     id: "medium",
     label: "Medium",
     color: "var(--yellow)",
-    desc: "Primes 50–150 · 3 min",
+    desc: "Primes 100–499 · 3 min",
   },
   {
     id: "hard",
     label: "Hard",
     color: "var(--red)",
-    desc: "Primes 150–255 · 2 min",
+    desc: "Primes 100–999 · 2 min",
   },
 ];
 
